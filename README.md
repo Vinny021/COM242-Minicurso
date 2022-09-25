@@ -1,9 +1,5 @@
 # COM242-Minicurso
 
-![GitHub repo size](https://img.shields.io/github/repo-size/iuricode/README-template?style=for-the-badge)
-![GitHub language count](https://img.shields.io/github/languages/count/iuricode/README-template?style=for-the-badge)
-![GitHub forks](https://img.shields.io/github/forks/iuricode/README-template?style=for-the-badge)
-
 > Repositório para o código do minicurso de ActiveMQ. Esse projeto tem com ituíto exibir o funcionamento do broker de mensageria através de funções simples como resposta a uma mensagem, alteração de um arquivo de texto e execução de uma função.
 
 ## 💻 Pré-requisitos
