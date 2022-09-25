@@ -11,7 +11,7 @@ Antes de começar, verifique se você atendeu aos seguintes requisitos:
 * Realizou a instalação do ActiveMQ
 * Você leu `activemq.apache.org/getting-started`.
 
-## ☕ Usando <nome_do_projeto>
+## ☕ Usando
 
 Para usar o código, siga estas etapas:
 
