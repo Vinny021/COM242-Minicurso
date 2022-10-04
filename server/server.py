@@ -26,7 +26,7 @@ while(len(messageListenerId) == 0):
 
 print("Message ID: ", messageListenerId)
 messageConn.set_listener('messageListener', MessageListener(messageConn, messageListenerId))
-messageConn.subscribe('/topic/message', id=messageListenerId)
+messageConn.subscribe('/queue/message', id=messageListenerId)
 
 #Configuração do fileListener
 fileConn = stomp.Connection([(IP, PORT)])
@@ -37,7 +37,7 @@ while(len(fileListenerId) == 0):
 
 print("File ID: ", fileListenerId)
 fileConn.set_listener('fileListener', FileListener(fileConn, fileListenerId))
-fileConn.subscribe('/topic/file', id=fileListenerId)
+fileConn.subscribe('/queue/file', id=fileListenerId)
 
 #Configuração do functionListener
 functionConn = stomp.Connection([(IP, PORT)])
@@ -48,7 +48,7 @@ while(len(functionListenerId) == 0):
 
 print("Function ID: ", functionListenerId)
 functionConn.set_listener('functionListener', FunctionListener(functionConn, functionListenerId))
-functionConn.subscribe('/topic/function', id=functionListenerId)
+functionConn.subscribe('/queue/function', id=functionListenerId)
 
 op = 1
 while op != 0:

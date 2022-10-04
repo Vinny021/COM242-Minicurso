@@ -1,11 +1,10 @@
 import time
 import stomp
-import uuid
 import json
 
-def tryConnect(conn):
+def tryConnect(conn, idInicial):
     try:
-        clientId = str(uuid.uuid4())
+        clientId = 'clientId'+str(idInicial)
         conn.connect('admin', 'admin', wait=True, headers={'client-id': clientId})
         return clientId
     except:
@@ -21,8 +20,7 @@ class ClientListener(stomp.ConnectionListener):
 
     def on_message(self, frame):
         data = json.loads(frame.body)
-        if(data['clientId'] == self.clientId):
-            print('\nReceived a message "%s"' % data['body'])
+        print('\nReceived a message "%s"' % data['body'])
 
 IP = '127.0.0.1'
 PORT = 61613
@@ -30,12 +28,15 @@ PORT = 61613
 conn = stomp.Connection([(IP, PORT)])
 
 clientId = ''
+idInicial = 1
 while(len(clientId) == 0):
-    clientId = tryConnect(conn)
+    clientId = tryConnect(conn, idInicial)
+    idInicial += 1
 
 print("Client ID: ", clientId)
 conn.set_listener(str(clientId), ClientListener(clientId))
-conn.subscribe('/topic/response', id=clientId)
+queueString = '/queue/response/' + clientId
+conn.subscribe(queueString, id=clientId)
 
 op = 1
 while op != 0:
@@ -53,8 +54,8 @@ while op != 0:
         data = { "clientId": clientId, "body": mensagem }
         sendData = json.dumps(data)
         
-        conn.send(body=''.join(sendData), destination='/topic/message')
-        time.sleep(2)
+        conn.send(body=''.join(sendData), destination='/queue/message')
+        time.sleep(1)
     
     if(op == 2):
         mensagem = input("Digite algo para inserir no arquivo : ")
@@ -62,8 +63,8 @@ while op != 0:
         data = { "clientId": clientId, "body": mensagem }
         sendData = json.dumps(data)
 
-        conn.send(body=''.join(sendData), destination='/topic/file')
-        time.sleep(2)
+        conn.send(body=''.join(sendData), destination='/queue/file')
+        time.sleep(1)
     
     if(op == 3):
         print('1 - SOMA')
@@ -89,8 +90,5 @@ while op != 0:
             data = { "clientId": clientId, "body": jsonData }
             sendData = json.dumps(data)
 
-            conn.send(body=''.join(sendData), destination='/topic/function')
-            time.sleep(2)
-
-time.sleep(2)
-conn.disconnect()
+            conn.send(body=''.join(sendData), destination='/queue/function')
+            time.sleep(1)

@@ -21,4 +21,5 @@ class FileListener(stomp.ConnectionListener):
 
             sendData = json.dumps({ "clientId": data['clientId'], "body": 'Inserido no documento'})
 
-            self.conn.send(body=''.join(sendData), destination='/topic/response')
+            destinationString = '/queue/response/'+data['clientId']
+            self.conn.send(body=''.join(sendData), destination=destinationString)

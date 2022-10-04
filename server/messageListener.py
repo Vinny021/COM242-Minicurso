@@ -16,4 +16,5 @@ class MessageListener(stomp.ConnectionListener):
         
         if(data['body'][:5] == 'diga '):
             sendData = json.dumps({ "clientId": data['clientId'], "body": data['body'][5:] })
-            self.conn.send(body=''.join(sendData), destination='/topic/response')
+            destinationString = '/queue/response/'+data['clientId']
+            self.conn.send(body=''.join(sendData), destination=destinationString)
