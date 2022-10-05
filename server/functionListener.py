@@ -32,5 +32,5 @@ class FunctionListener(stomp.ConnectionListener):
 
         sendData = json.dumps({ "clientId": sentData['clientId'], "body": bodyText})
 
-        destinationString = '/queue/response/'+data['clientId']
+        destinationString = '/queue/response/'+sentData['clientId']
         self.conn.send(body=''.join(sendData), destination=destinationString)

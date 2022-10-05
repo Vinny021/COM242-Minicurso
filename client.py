@@ -49,7 +49,7 @@ while op != 0:
     op = int(input('Digite uma opção: '))
 
     if(op == 1):
-        mensagem = input("Digite a mensage: ")
+        mensagem = input("Digite a mensage no formato 'diga sua_mensagem': ")
         
         data = { "clientId": clientId, "body": mensagem }
         sendData = json.dumps(data)
